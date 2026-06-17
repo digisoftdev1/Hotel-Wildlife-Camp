@@ -227,6 +227,18 @@ class PageSectionController extends Controller
                     'business_hours' => \App\Models\Contact::whereNotNull('business_hours')->exists(),
                 ]
             ],
+            'about us' => [
+                'count' => \App\Models\Contact::count(),
+                'create_url' => route('contactpage.index'),
+                'label' => 'Contact Info',
+                'field_stats' => [
+                    'phones' => \App\Models\Contact::whereNotNull('phones')->exists(),
+                    'emails' => \App\Models\Contact::whereNotNull('emails')->exists(),
+                    'address' => \App\Models\Contact::whereNotNull('address')->exists(),
+                    'map_url' => \App\Models\Contact::whereNotNull('map_url')->exists(),
+                    'business_hours' => \App\Models\Contact::whereNotNull('business_hours')->exists(),
+                ]
+            ],
         ];
     }
 }

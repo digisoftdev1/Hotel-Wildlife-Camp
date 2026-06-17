@@ -34,7 +34,6 @@ class ServiceController extends Controller
             'service_name' => 'required|string|max:255',
             'description' => 'nullable|string',
         ]);
-
         Service::create($request->all());
 
         return redirect()->route('services.index')->with('success', 'Service created successfully.');

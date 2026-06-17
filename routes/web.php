@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HeroSectionController;
@@ -96,6 +97,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('testimonials', TestimonialController::class);
     Route::resource('services', ServiceController::class);
+    Route::resource('abouts', AboutController::class);
 
     Route::resource('experience-activities', ExperienceActivityController::class);
     Route::post('activity-package-categories', [ActivityPackageCategoryController::class, 'store'])->name('activity-package-categories.store');

@@ -31,7 +31,7 @@
         @include('layouts.navigation')
         <x-sidebar />
         <!-- Page Content -->
-        <main class="flex-1 flex flex-col lg:ml-64">
+        <main class="flex-1 flex flex-col "> <!-- commented lg:ml-64-->
             {{ $slot }}
         </main>
 

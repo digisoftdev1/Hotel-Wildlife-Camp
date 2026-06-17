@@ -161,7 +161,15 @@
                         class="block px-4 py-2 text-sm text-gray-200 rounded hover:hover:bg-gray-500">Room Gallery</a>
                 </div>
             </div>
-
+            <a href="{{ route('abouts.index') }}"
+                class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-indigo-50 hover:text-indigo-700 transition-colors group">
+              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 11v6M12 8h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+    </path>
+</svg>
+                About 
+            </a>
             <a href="{{ route('testimonials.index') }}"
                 class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-indigo-50 hover:text-indigo-700 transition-colors group">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
