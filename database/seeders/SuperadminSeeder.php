@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+class SuperadminSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        User::create([
+            'name' => 'superadmin',
+            'username' => 'superadmin',
+            'email'=>'superadmin@gmail.com',
+            'role' => 'superadmin',
+            'password' =>Hash::make('ChitwanForest##83')
+        ]);
+    }
+}   
