@@ -85,7 +85,7 @@ class PageSectionController extends Controller
      */
     public function editSection(Page $page, PageCommonSection $section)
     {
-        $section->load(['ctaButtons', 'images']);
+        $section->load(['ctaButtons', 'images','about']);
         $sectionType = $section->section_type ?: 'simple';
         $sectionLabel = $section->section_identifier ?: $this->getSectionLabel($sectionType);
         $pages = Page::select('id', 'slug')->orderBy('slug')->get();
@@ -227,18 +227,19 @@ class PageSectionController extends Controller
                     'business_hours' => \App\Models\Contact::whereNotNull('business_hours')->exists(),
                 ]
             ],
-            'about us' => [
-                'count' => \App\Models\Contact::count(),
-                'create_url' => route('contactpage.index'),
-                'label' => 'Contact Info',
-                'field_stats' => [
-                    'phones' => \App\Models\Contact::whereNotNull('phones')->exists(),
-                    'emails' => \App\Models\Contact::whereNotNull('emails')->exists(),
-                    'address' => \App\Models\Contact::whereNotNull('address')->exists(),
-                    'map_url' => \App\Models\Contact::whereNotNull('map_url')->exists(),
-                    'business_hours' => \App\Models\Contact::whereNotNull('business_hours')->exists(),
+            'about' => [
+            'count' => \App\Models\About::count(),
+            'create_url' => route('abouts.create'),
+            'label' => 'About Section',
+            'field_stats' => [
+                  
+                    'established_year' => \App\Models\About::whereNotNull('established_year')->exists(),
+                    'established_description' => \App\Models\About::whereNotNull('established_description')->exists(),
+                    'location' => \App\Models\About::whereNotNull('location')->exists(),
+                    'location_description' => \App\Models\About::whereNotNull('location_description')->exists(),
+                      
                 ]
             ],
         ];
     }
-}
+}   

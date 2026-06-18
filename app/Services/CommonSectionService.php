@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\About;
 use App\Models\Page;
 use App\Models\PageCommonSection;
 use Illuminate\Support\Facades\Storage;
@@ -31,7 +32,7 @@ class CommonSectionService
             'updated_by' => auth()->id(),
             'display_fields' => isset($data['display_fields']) ? array_values(array_unique($data['display_fields'])) : null,
         ]);
-
+        $this->syncAbout($section, $data);
         $this->syncCtaButtons($section, $data['cta_buttons'] ?? []);
         $this->syncSectionImages($section, $data['section_images'] ?? [], $files['section_images'] ?? []);
 
@@ -53,11 +54,33 @@ class CommonSectionService
             'updated_by' => auth()->id(),
             'display_fields' => isset($data['display_fields']) ? array_values(array_unique($data['display_fields'])) : null,
         ]);
-
+        $this->syncAbout($section, $data);
         $this->syncCtaButtons($section, $data['cta_buttons'] ?? []);
         $this->syncSectionImages($section, $data['section_images'] ?? [], $files['section_images'] ?? []);
     }
+   public function syncAbout(PageCommonSection $section, array $data): void
+{
+    // 1:1 relation style (like "replace existing")
+    $about = $section->about;
 
+    if (!$about) {
+        $section->about()->create([
+            'established_year' => $data['established_year'] ?? null,
+            'established_description' => $data['established_description'] ?? null,
+            'location' => $data['location'] ?? null,
+            'location_description' => $data['location_description'] ?? null,
+        ]);
+
+        return;
+    }
+
+    $about->update([
+        'established_year' => $data['established_year'] ?? null,
+        'established_description' => $data['established_description'] ?? null,
+        'location' => $data['location'] ?? null,
+        'location_description' => $data['location_description'] ?? null,
+    ]);
+}
     /**
      * Sync CTA buttons for a section.
      */
@@ -75,6 +98,8 @@ class CommonSectionService
             ]);
         }
     }
+
+ 
 
     /**
      * Sync images for a section.
@@ -133,4 +158,3 @@ class CommonSectionService
         }
     }
 }
-

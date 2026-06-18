@@ -244,10 +244,11 @@
                 <div class="p-6 space-y-6">
                     <div class="space-y-2">
                         <label class="text-sm font-medium text-gray-700">Section Identifier (Label)</label>
-                        <input type="text" id="section_identifier" name="section_identifier" x-model="rawName" required
-                            placeholder="e.g. Stay with us"
+                        <input type="text" id="section_identifier" name="section_identifier" x-model="rawName"
+                            required placeholder="e.g. Stay with us"
                             class="section_identifier w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition-all text-sm">
-                        <p class="text-xs text-gray-500">This will be the internal identifier/label for this section.</p>
+                        <p class="text-xs text-gray-500">This will be the internal identifier/label for this section.
+                        </p>
                     </div>
 
                     <div class="space-y-2">
@@ -261,8 +262,9 @@
                             @foreach ($sectionTypes as $key => $label)
                                 <option value="{{ $key }}">{{ $label }}</option>
                             @endforeach
-                            @if($section && !isset($sectionTypes[$section->section_type]))
-                                <option value="{{ $section->section_type }}">{{ ucfirst(str_replace('-', ' ', $section->section_type)) }} (Current)</option>
+                            @if ($section && !isset($sectionTypes[$section->section_type]))
+                                <option value="{{ $section->section_type }}">
+                                    {{ ucfirst(str_replace('-', ' ', $section->section_type)) }} (Current)</option>
                             @endif
                         </select>
                         <p class="text-[10px] text-gray-400 italic">Select a content type to include dynamic items.</p>
@@ -272,24 +274,33 @@
                     <template x-if="selectedType && getMeta() && getMeta().count === 0">
                         <div class="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
                             <div class="flex-shrink-0 mt-0.5">
-                                <svg class="size-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                <svg class="size-5 text-amber-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                 </svg>
                             </div>
                             <div class="flex-1">
                                 <h4 class="text-sm font-bold text-amber-900">No content found!</h4>
                                 <p class="text-xs text-amber-700 mt-1">
-                                    You have selected <span class="font-bold" x-text="getMeta().label"></span>, but there are no items created yet. Nothing will be displayed on the frontend until you add some.
+                                    You have selected <span class="font-bold" x-text="getMeta().label"></span>, but
+                                    there are no items created yet. Nothing will be displayed on the frontend until you
+                                    add some.
                                 </p>
                                 <a :href="getMeta().create_url" target="_blank"
                                     class="inline-flex items-center gap-1.5 mt-3 text-xs font-bold text-amber-800 hover:text-amber-900 transition-colors bg-white px-3 py-1.5 rounded border border-amber-200 shadow-sm">
-                                    <svg class="size-3.5" x-show="getMeta().create_url.includes('create')" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    <svg class="size-3.5" x-show="getMeta().create_url.includes('create')"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 4v16m8-8H4" />
                                     </svg>
-                                    <svg class="size-3.5" x-show="!getMeta().create_url.includes('create')" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    <svg class="size-3.5" x-show="!getMeta().create_url.includes('create')"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                     </svg>
-                                    <span x-text="getMeta().create_url.includes('create') ? 'Add ' + getMeta().label : 'Manage ' + getMeta().label"></span>
+                                    <span
+                                        x-text="getMeta().create_url.includes('create') ? 'Add ' + getMeta().label : 'Manage ' + getMeta().label"></span>
                                 </a>
                             </div>
                         </div>
@@ -299,11 +310,13 @@
             </section>
 
             {{-- Dynamic Display Fields Section --}}
-            <section x-show="selectedType" x-cloak class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <section x-show="selectedType" x-cloak
+                class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-blue-50/50">
                     <h3 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
                         <svg class="size-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                         </svg>
                         <span>Content Display Options</span>
                     </h3>
@@ -313,19 +326,26 @@
                     <div x-show="['rooms', 'accommodation', 'stay-with-us'].includes(selectedType)" class="space-y-4">
                         <div class="flex items-center justify-between">
                             <p class="text-xs font-semibold text-blue-700">All rooms will be included automatically</p>
-                            <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full uppercase font-bold">Accommodation</span>
+                            <span
+                                class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full uppercase font-bold">Accommodation</span>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
                             @foreach ($allAvailableFields['accommodation'] ?? [] as $field => $label)
-                                <label class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
-                                    :class="selectedType && contentMeta['accommodation'] && !contentMeta['accommodation'].field_stats['{{ $field }}'] ? 'opacity-60' : ''">
+                                <label
+                                    class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
+                                    :class="selectedType && contentMeta['accommodation'] && !contentMeta['accommodation']
+                                        .field_stats['{{ $field }}'] ? 'opacity-60' : ''">
                                     <input type="checkbox" name="display_fields[]" value="{{ $field }}"
                                         x-model="displayFields"
                                         class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500 cursor-pointer">
                                     <span class="flex items-center gap-1.5">
                                         {{ $label }}
-                                        <template x-if="selectedType && contentMeta['accommodation'] && !contentMeta['accommodation'].field_stats['{{ $field }}']">
-                                            <span class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter" title="No data found in any records">Empty</span>
+                                        <template
+                                            x-if="selectedType && contentMeta['accommodation'] && !contentMeta['accommodation'].field_stats['{{ $field }}']">
+                                            <span
+                                                class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter"
+                                                title="No data found in any records">Empty</span>
                                         </template>
                                     </span>
                                 </label>
@@ -336,17 +356,22 @@
                     {{-- ── Services ───────────────────────────────────────────────── --}}
                     <div x-show="selectedType === 'services'" class="space-y-4">
                         <p class="text-xs font-semibold text-blue-700">All services will be included automatically</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
                             @foreach ($allAvailableFields['services'] ?? [] as $field => $label)
-                                <label class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
-                                    :class="selectedType === 'services' && contentMeta['services'] && !contentMeta['services'].field_stats['{{ $field }}'] ? 'opacity-60' : ''">
+                                <label
+                                    class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
+                                    :class="selectedType === 'services' && contentMeta['services'] && !contentMeta['services']
+                                        .field_stats['{{ $field }}'] ? 'opacity-60' : ''">
                                     <input type="checkbox" name="display_fields[]" value="{{ $field }}"
                                         x-model="displayFields"
                                         class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500 cursor-pointer">
                                     <span class="flex items-center gap-1.5">
                                         {{ $label }}
-                                        <template x-if="selectedType === 'services' && contentMeta['services'] && !contentMeta['services'].field_stats['{{ $field }}']">
-                                            <span class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
+                                        <template
+                                            x-if="selectedType === 'services' && contentMeta['services'] && !contentMeta['services'].field_stats['{{ $field }}']">
+                                            <span
+                                                class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
                                         </template>
                                     </span>
                                 </label>
@@ -356,18 +381,24 @@
 
                     {{-- ── Testimonials ────────────────────────────────────────────── --}}
                     <div x-show="selectedType === 'testimonials'" class="space-y-4">
-                        <p class="text-xs font-semibold text-blue-700">All testimonials will be included automatically</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <p class="text-xs font-semibold text-blue-700">All testimonials will be included automatically
+                        </p>
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
                             @foreach ($allAvailableFields['testimonials'] ?? [] as $field => $label)
-                                <label class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
-                                    :class="selectedType === 'testimonials' && contentMeta['testimonials'] && !contentMeta['testimonials'].field_stats['{{ $field }}'] ? 'opacity-60' : ''">
+                                <label
+                                    class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
+                                    :class="selectedType === 'testimonials' && contentMeta['testimonials'] && !contentMeta[
+                                        'testimonials'].field_stats['{{ $field }}'] ? 'opacity-60' : ''">
                                     <input type="checkbox" name="display_fields[]" value="{{ $field }}"
                                         x-model="displayFields"
                                         class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500 cursor-pointer">
                                     <span class="flex items-center gap-1.5">
                                         {{ $label }}
-                                        <template x-if="selectedType === 'testimonials' && contentMeta['testimonials'] && !contentMeta['testimonials'].field_stats['{{ $field }}']">
-                                            <span class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
+                                        <template
+                                            x-if="selectedType === 'testimonials' && contentMeta['testimonials'] && !contentMeta['testimonials'].field_stats['{{ $field }}']">
+                                            <span
+                                                class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
                                         </template>
                                     </span>
                                 </label>
@@ -377,18 +408,24 @@
 
                     {{-- ── Featured Blogs ──────────────────────────────────────────── --}}
                     <div x-show="selectedType === 'featured_blogs'" class="space-y-4">
-                        <p class="text-xs font-semibold text-blue-700">All featured blogs will be included automatically</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <p class="text-xs font-semibold text-blue-700">All featured blogs will be included
+                            automatically</p>
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
                             @foreach ($allAvailableFields['featured_blogs'] ?? [] as $field => $label)
-                                <label class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
-                                    :class="selectedType === 'featured_blogs' && contentMeta['featured_blogs'] && !contentMeta['featured_blogs'].field_stats['{{ $field }}'] ? 'opacity-60' : ''">
+                                <label
+                                    class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
+                                    :class="selectedType === 'featured_blogs' && contentMeta['featured_blogs'] && !contentMeta[
+                                        'featured_blogs'].field_stats['{{ $field }}'] ? 'opacity-60' : ''">
                                     <input type="checkbox" name="display_fields[]" value="{{ $field }}"
                                         x-model="displayFields"
                                         class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500 cursor-pointer">
                                     <span class="flex items-center gap-1.5">
                                         {{ $label }}
-                                        <template x-if="selectedType === 'featured_blogs' && contentMeta['featured_blogs'] && !contentMeta['featured_blogs'].field_stats['{{ $field }}']">
-                                            <span class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
+                                        <template
+                                            x-if="selectedType === 'featured_blogs' && contentMeta['featured_blogs'] && !contentMeta['featured_blogs'].field_stats['{{ $field }}']">
+                                            <span
+                                                class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
                                         </template>
                                     </span>
                                 </label>
@@ -398,18 +435,25 @@
 
                     {{-- ── Featured Activities ─────────────────────────────────────── --}}
                     <div x-show="selectedType === 'featured_activities'" class="space-y-4">
-                        <p class="text-xs font-semibold text-blue-700">All featured activities will be included automatically</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <p class="text-xs font-semibold text-blue-700">All featured activities will be included
+                            automatically</p>
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
                             @foreach ($allAvailableFields['featured_activities'] ?? [] as $field => $label)
-                                <label class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
-                                    :class="selectedType === 'featured_activities' && contentMeta['featured_activities'] && !contentMeta['featured_activities'].field_stats['{{ $field }}'] ? 'opacity-60' : ''">
+                                <label
+                                    class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
+                                    :class="selectedType === 'featured_activities' && contentMeta['featured_activities'] && !
+                                        contentMeta['featured_activities'].field_stats['{{ $field }}'] ?
+                                        'opacity-60' : ''">
                                     <input type="checkbox" name="display_fields[]" value="{{ $field }}"
                                         x-model="displayFields"
                                         class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500 cursor-pointer">
                                     <span class="flex items-center gap-1.5">
                                         {{ $label }}
-                                        <template x-if="selectedType === 'featured_activities' && contentMeta['featured_activities'] && !contentMeta['featured_activities'].field_stats['{{ $field }}']">
-                                            <span class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
+                                        <template
+                                            x-if="selectedType === 'featured_activities' && contentMeta['featured_activities'] && !contentMeta['featured_activities'].field_stats['{{ $field }}']">
+                                            <span
+                                                class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
                                         </template>
                                     </span>
                                 </label>
@@ -419,18 +463,25 @@
 
                     {{-- ── Featured Packages ───────────────────────────────────────── --}}
                     <div x-show="selectedType === 'featured_packages'" class="space-y-4">
-                        <p class="text-xs font-semibold text-blue-700">All featured packages will be included automatically</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <p class="text-xs font-semibold text-blue-700">All featured packages will be included
+                            automatically</p>
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
                             @foreach ($allAvailableFields['featured_packages'] ?? [] as $field => $label)
-                                <label class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
-                                    :class="selectedType === 'featured_packages' && contentMeta['featured_packages'] && !contentMeta['featured_packages'].field_stats['{{ $field }}'] ? 'opacity-60' : ''">
+                                <label
+                                    class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
+                                    :class="selectedType === 'featured_packages' && contentMeta['featured_packages'] && !
+                                        contentMeta['featured_packages'].field_stats['{{ $field }}'] ?
+                                        'opacity-60' : ''">
                                     <input type="checkbox" name="display_fields[]" value="{{ $field }}"
                                         x-model="displayFields"
                                         class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500 cursor-pointer">
                                     <span class="flex items-center gap-1.5">
                                         {{ $label }}
-                                        <template x-if="selectedType === 'featured_packages' && contentMeta['featured_packages'] && !contentMeta['featured_packages'].field_stats['{{ $field }}']">
-                                            <span class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
+                                        <template
+                                            x-if="selectedType === 'featured_packages' && contentMeta['featured_packages'] && !contentMeta['featured_packages'].field_stats['{{ $field }}']">
+                                            <span
+                                                class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
                                         </template>
                                     </span>
                                 </label>
@@ -440,18 +491,24 @@
 
                     {{-- ── Gallery ─────────────────────────────────────────────────── --}}
                     <div x-show="selectedType === 'gallery'" class="space-y-4">
-                        <p class="text-xs font-semibold text-blue-700">All gallery categories will be included automatically</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <p class="text-xs font-semibold text-blue-700">All gallery categories will be included
+                            automatically</p>
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
                             @foreach ($allAvailableFields['gallery'] ?? [] as $field => $label)
-                                <label class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
-                                    :class="selectedType === 'gallery' && contentMeta['gallery'] && !contentMeta['gallery'].field_stats['{{ $field }}'] ? 'opacity-60' : ''">
+                                <label
+                                    class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
+                                    :class="selectedType === 'gallery' && contentMeta['gallery'] && !contentMeta['gallery']
+                                        .field_stats['{{ $field }}'] ? 'opacity-60' : ''">
                                     <input type="checkbox" name="display_fields[]" value="{{ $field }}"
                                         x-model="displayFields"
                                         class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500 cursor-pointer">
                                     <span class="flex items-center gap-1.5">
                                         {{ $label }}
-                                        <template x-if="selectedType === 'gallery' && contentMeta['gallery'] && !contentMeta['gallery'].field_stats['{{ $field }}']">
-                                            <span class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
+                                        <template
+                                            x-if="selectedType === 'gallery' && contentMeta['gallery'] && !contentMeta['gallery'].field_stats['{{ $field }}']">
+                                            <span
+                                                class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
                                         </template>
                                     </span>
                                 </label>
@@ -461,18 +518,24 @@
 
                     {{-- ── Contact ──────────────────────────────────────────────────── --}}
                     <div x-show="selectedType === 'contact'" class="space-y-4">
-                        <p class="text-xs font-semibold text-blue-700">Contact information will be included automatically</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <p class="text-xs font-semibold text-blue-700">Contact information will be included
+                            automatically</p>
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
                             @foreach ($allAvailableFields['contact'] ?? [] as $field => $label)
-                                <label class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
-                                    :class="selectedType === 'contact' && contentMeta['contact'] && !contentMeta['contact'].field_stats['{{ $field }}'] ? 'opacity-60' : ''">
+                                <label
+                                    class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer hover:text-indigo-600 transition-colors"
+                                    :class="selectedType === 'contact' && contentMeta['contact'] && !contentMeta['contact']
+                                        .field_stats['{{ $field }}'] ? 'opacity-60' : ''">
                                     <input type="checkbox" name="display_fields[]" value="{{ $field }}"
                                         x-model="displayFields"
                                         class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500 cursor-pointer">
                                     <span class="flex items-center gap-1.5">
                                         {{ $label }}
-                                        <template x-if="selectedType === 'contact' && contentMeta['contact'] && !contentMeta['contact'].field_stats['{{ $field }}']">
-                                            <span class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
+                                        <template
+                                            x-if="selectedType === 'contact' && contentMeta['contact'] && !contentMeta['contact'].field_stats['{{ $field }}']">
+                                            <span
+                                                class="text-[9px] bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded uppercase font-bold tracking-tighter">Empty</span>
                                         </template>
                                     </span>
                                 </label>
@@ -527,6 +590,40 @@
                             <p id="description_error" class="mt-2 text-xs text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    @if ($page->slug === 'about')
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+
+                            <div>
+                                <label class="text-sm font-medium text-gray-700">Established Year</label>
+                                <input type="number" name="established_year"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-md"
+                                    value="{{ old('established_year', $section->about->established_year ?? '') }}">
+                            </div>
+
+                            <div>
+                                <label class="text-sm font-medium text-gray-700">Established Description</label>
+                                <input type="text" name="established_description"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-md"
+                                    value="{{ old('established_description', $section->about->established_description ?? '') }}">
+                            </div>
+
+                            <div>
+                                <label class="text-sm font-medium text-gray-700">Location</label>
+                                <input type="text" name="location"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-md"
+                                    value="{{ old('location', $section->about->location ?? '') }}">
+                            </div>
+
+                            <div>
+                                <label class="text-sm font-medium text-gray-700">Location Description</label>
+                                <input type="text" name="location_description"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-md"
+                                    value="{{ old('location_description', $section->about->location_description ?? '') }}">
+                            </div>
+
+                        </div>
+                    @endif
                 </div>
             </section>
 
@@ -543,13 +640,14 @@
                     <template x-for="(btn, index) in ctaButtons" :key="index">
                         <div class="p-4 border border-gray-200 rounded-lg space-y-3 relative bg-gray-50/30">
                             <div class="flex justify-between items-center">
-                                <span class="text-sm font-bold text-gray-900">Button <span x-text="index + 1"></span></span>
+                                <span class="text-sm font-bold text-gray-900">Button <span
+                                        x-text="index + 1"></span></span>
                                 <button type="button" @click="removeCtaButton(index)"
                                     class="text-red-500 hover:text-red-700 text-sm">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </div>
-                            
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="space-y-1">
                                     <label class="text-xs font-medium text-gray-700">Button Label</label>
@@ -559,7 +657,8 @@
                                 </div>
                                 <div class="space-y-1">
                                     <label class="text-xs font-medium text-gray-700">Link to Page</label>
-                                    <select :name="'cta_buttons[' + index + '][page_id]'" x-model="btn.page_id" required
+                                    <select :name="'cta_buttons[' + index + '][page_id]'" x-model="btn.page_id"
+                                        required
                                         class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 text-sm bg-white">
                                         <option value="">Select a page...</option>
                                         @foreach ($pages as $p)
@@ -571,20 +670,24 @@
                         </div>
                     </template>
 
-                    <div x-show="ctaButtons.length === 0" class="text-center py-4 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                    <div x-show="ctaButtons.length === 0"
+                        class="text-center py-4 bg-gray-50 rounded-lg border border-dashed border-gray-300">
                         <p class="text-sm text-gray-500">No buttons added yet. Click "Add Button" to include CTAs.</p>
                     </div>
                 </div>
             </section>
 
-            <section class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden" x-data="{ includeMedia: {{ $existingImages ? 'true' : 'false' }} }">
+            <section class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+                x-data="{ includeMedia: {{ $existingImages ? 'true' : 'false' }} }">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
                     <h3 class="text-lg font-semibold text-gray-900">Section Media</h3>
                     <div class="flex items-center gap-3">
                         <span class="text-xs font-medium text-gray-500 uppercase">Enable Media</span>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" x-model="includeMedia" class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                            <div
+                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600">
+                            </div>
                         </label>
                     </div>
                 </div>
@@ -595,10 +698,12 @@
                             <div x-show="!slide.markedDelete" class="space-y-3">
                                 <div @click="document.getElementById('imgInput_' + index).click()"
                                     class="relative aspect-video border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-all flex flex-col items-center justify-center overflow-hidden">
-                                    
+
                                     <div x-show="!slide.previewUrl" class="text-center p-4">
-                                        <svg class="size-8 text-gray-400 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        <svg class="size-8 text-gray-400 mx-auto mb-1" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
                                         <p class="text-xs text-gray-500">Upload Image</p>
                                     </div>
@@ -607,25 +712,36 @@
                                         <img :src="slide.previewUrl" class="w-full h-full object-cover">
                                         <button @click.stop="removeSlide(index)" type="button"
                                             class="absolute top-1.5 right-1.5 bg-red-600 text-white rounded-full p-1 shadow-md hover:bg-red-700 transition-colors">
-                                            <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                            <svg class="size-3.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
                                             </svg>
                                         </button>
                                     </div>
 
-                                    <input type="file" accept="image/*" :name="'section_images[' + index + '][image]'" :id="'imgInput_' + index" class="hidden" @change="validateImageFile(index, $event)">
+                                    <input type="file" accept="image/*"
+                                        :name="'section_images[' + index + '][image]'" :id="'imgInput_' + index"
+                                        class="hidden" @change="validateImageFile(index, $event)">
                                 </div>
-                                <input type="text" :name="'section_images[' + index + '][alt_text]'" x-model="slide.altText" placeholder="Alt text" class="w-full px-3 py-1.5 border border-gray-300 rounded-md text-xs focus:ring-indigo-500">
-                                <input type="hidden" :name="'section_images[' + index + '][existing_path]'" :value="slide.existingPath ?? ''">
-                                <input type="hidden" :name="'section_images[' + index + '][delete]'" :value="slide.markedDelete ? '1' : ''">
-                                <p x-text="slide.error" class="text-[10px] text-red-600 font-medium" x-show="slide.error"></p>
+                                <input type="text" :name="'section_images[' + index + '][alt_text]'"
+                                    x-model="slide.altText" placeholder="Alt text"
+                                    class="w-full px-3 py-1.5 border border-gray-300 rounded-md text-xs focus:ring-indigo-500">
+                                <input type="hidden" :name="'section_images[' + index + '][existing_path]'"
+                                    :value="slide.existingPath ?? ''">
+                                <input type="hidden" :name="'section_images[' + index + '][delete]'"
+                                    :value="slide.markedDelete ? '1' : ''">
+                                <p x-text="slide.error" class="text-[10px] text-red-600 font-medium"
+                                    x-show="slide.error"></p>
                             </div>
                         </template>
 
                         <div x-show="activeSlides().length < 3" @click="addSlide()"
                             class="aspect-video border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-all">
-                            <svg class="size-6 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            <svg class="size-6 text-gray-400 mb-1" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4v16m8-8H4" />
                             </svg>
                             <p class="text-xs text-gray-500">Add Image</p>
                         </div>
@@ -659,21 +775,22 @@
                 </a>
             </div>
 
-            @if($section)
-            <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                <h4 class="text-xs font-bold text-gray-500 uppercase mb-4">Section Info</h4>
-                <div class="space-y-3 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">Type:</span>
-                        <span class="font-medium">{{ $sectionTypes[$section->section_type] ?? $section->section_type }}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">Last Updated:</span>
-                        <span class="font-medium">{{ $section->updated_at->format('M d, Y') }}</span>
+            @if ($section)
+                <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                    <h4 class="text-xs font-bold text-gray-500 uppercase mb-4">Section Info</h4>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Type:</span>
+                            <span
+                                class="font-medium">{{ $sectionTypes[$section->section_type] ?? $section->section_type }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Last Updated:</span>
+                            <span class="font-medium">{{ $section->updated_at->format('M d, Y') }}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endif
         </aside>
-</form>
+    </form>
 </div>

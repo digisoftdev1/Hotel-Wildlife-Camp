@@ -24,21 +24,32 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class CommonSectionSimpleResource extends JsonResource
 {
     public function toArray(Request $request): array
-    {
-        $displayFields = $this->display_fields ?? [];
-        
-        return [
-            'section_id'     => $this->id,
-            'order'          => $this->order,
-            'section_type'   => $this->section_type,
-            'section_title'  => $this->section_title,
-            'heading'        => $this->heading,
-            'description'    => $this->description,
-            'cta_buttons'    => CommonSectionCtaButtonResource::collection($this->whenLoaded('ctaButtons')),
-            'images'         => CommonSectionImageResource::collection($this->whenLoaded('images')),
-            'content'        => $this->resolveContent($this->section_type, $displayFields),
+{
+    $displayFields = $this->display_fields ?? [];
+
+    $data = [
+        'section_id'    => $this->id,
+        'order'         => $this->order,
+        'section_type'  => $this->section_type,
+        'section_title' => $this->section_title,
+        'heading'       => $this->heading,
+        'description'   => $this->description,
+        'cta_buttons'   => CommonSectionCtaButtonResource::collection($this->whenLoaded('ctaButtons')),
+        'images'        => CommonSectionImageResource::collection($this->whenLoaded('images')),
+        'content'       => $this->resolveContent($this->section_type,$displayFields),
+    ];
+
+    if ($this->relationLoaded('about') && $this->about) {
+        $data['about'] = [
+            'established_year' => $this->about->established_year,
+            'established_description' => $this->about->established_description,
+            'location' => $this->about->location,
+            'location_description' => $this->about->location_description,
         ];
     }
+
+    return $data;
+}
 
     protected function resolveContent(?string $sectionType, array $displayFields): array
     {

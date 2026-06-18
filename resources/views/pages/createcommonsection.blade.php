@@ -17,7 +17,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <x-common-section-form
                     :page="$page"
-                    :section="$section"
+                    :section="$section" 
                     :sectionType="$sectionType"
                     :sectionLabel="$sectionLabel"
                     :pages="$pages"

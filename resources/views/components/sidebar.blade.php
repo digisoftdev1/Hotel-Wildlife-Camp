@@ -113,8 +113,8 @@
                                     <div class="flex items-center">
                                         {{ $parent->name }}
                                     </div>
-                                    <svg :class="subOpen ? 'rotate-180' : ''" class="w-4 h-4 transition-transform" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg :class="subOpen ? 'rotate-180' : ''" class="w-4 h-4 transition-transform"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M19 9l-7 7-7-7">
                                         </path>
@@ -161,15 +161,7 @@
                         class="block px-4 py-2 text-sm text-gray-200 rounded hover:hover:bg-gray-500">Room Gallery</a>
                 </div>
             </div>
-            <a href="{{ route('abouts.index') }}"
-                class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-indigo-50 hover:text-indigo-700 transition-colors group">
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M12 11v6M12 8h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-    </path>
-</svg>
-                About 
-            </a>
+
             <a href="{{ route('testimonials.index') }}"
                 class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-indigo-50 hover:text-indigo-700 transition-colors group">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,8 +190,8 @@
 
             <a href="{{ route('gallery-categories.index') }}"
                 class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-indigo-50 hover:text-indigo-700 transition-colors group">
-                <svg class="w-5 h-5 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    fill="none" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />
                 </svg>

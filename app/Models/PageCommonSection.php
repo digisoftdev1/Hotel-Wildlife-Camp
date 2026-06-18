@@ -66,6 +66,9 @@ class PageCommonSection extends Model
     {
         return $this->hasMany(CommonSectionImage::class, 'common_section_id')->orderBy('order');
     }
-
+    public function about()
+{
+    return $this->hasOne(\App\Models\About::class, 'common_section_id');
 }
 
+}

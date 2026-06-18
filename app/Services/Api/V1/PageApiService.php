@@ -23,7 +23,7 @@ class PageApiService
         return Page::where('slug', $slug)
             ->with([
                 'heroes' => fn($q) => $q->with(['sliderImages', 'ctaButtons.page'])->orderBy('order'),
-                'sections' => fn($q) => $q->with(['ctaButtons.page', 'images'])->orderBy('order'),
+                'sections' => fn($q) => $q->with(['ctaButtons.page', 'images','about'])->orderBy('order'),
             ])
             ->first();
     }

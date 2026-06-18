@@ -38,6 +38,12 @@ class StoreCommonSectionRequest extends FormRequest
             'item_ids.*' => ['nullable'],
             'display_fields' => ['nullable', 'array'],
             'display_fields.*' => ['nullable', 'string', 'max:100'],
+
+            //about section fields
+             'established_year' => 'nullable|integer|min:1800|max:' . date('Y'),
+        'established_description' => 'nullable|string|max:1000',
+        'location' => 'nullable|string|max:255',
+        'location_description' => 'nullable|string|max:1000',
         ];
     }
 

@@ -3,30 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class About extends Model
 {
     protected $fillable = [
-          'breadcrumb_title',
-        'breadcrumb_description',
-        'breadcrumb_image',
-        'about_title',
-        'about_description',
-        'about_image',
+         'common_section_id',
         'established_year',
         'established_description',
         'location',
-        'status',
-        'location_description',
-        'team_title',
-        'team_description',
-        'team_image',
-        'facilities_title',
-        'facilities',
-        'keywords'
-    ];
+        'location_description',        
 
-    protected $casts = [
-        'facilities' => 'array'
     ];
+     public function section()
+{
+    return $this->belongsTo(PageCommonSection::class, 'common_section_id');
+}
+
+ 
 }
