@@ -226,20 +226,7 @@ class PageSectionController extends Controller
                     'map_url' => \App\Models\Contact::whereNotNull('map_url')->exists(),
                     'business_hours' => \App\Models\Contact::whereNotNull('business_hours')->exists(),
                 ]
-            ],
-            'about' => [
-            'count' => \App\Models\About::count(),
-            'create_url' => route('abouts.create'),
-            'label' => 'About Section',
-            'field_stats' => [
-                  
-                    'established_year' => \App\Models\About::whereNotNull('established_year')->exists(),
-                    'established_description' => \App\Models\About::whereNotNull('established_description')->exists(),
-                    'location' => \App\Models\About::whereNotNull('location')->exists(),
-                    'location_description' => \App\Models\About::whereNotNull('location_description')->exists(),
-                      
-                ]
-            ],
+            ], 
         ];
     }
 }   
