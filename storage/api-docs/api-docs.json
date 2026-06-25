@@ -1,0 +1,627 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "CFR Content API",
+        "description": "Public API for retrieving website content",
+        "contact": {
+            "email": "admin@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1",
+            "description": "API V1"
+        }
+    ],
+    "paths": {
+        "/blogs": {
+            "get": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "List all published blogs",
+                "description": "Returns a paginated list of published blogs. Supports filtering by category name and keywords.",
+                "operationId": "e3be07bb79a31f78d7ed7821cdacb3bf",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Filter by category name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "keywords",
+                        "in": "query",
+                        "description": "Filter by keywords",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated list of blogs"
+                    }
+                }
+            }
+        },
+        "/blogs/{slug}": {
+            "get": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "Get specific blog details",
+                "description": "Returns all the details of a single published blog by its slug. Handles redirects if the slug has been updated.",
+                "operationId": "2c6cc62257c3917c7eed2c64718942e8",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "The slug of the blog",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Blog details"
+                    },
+                    "301": {
+                        "description": "Resource moved permanently"
+                    },
+                    "404": {
+                        "description": "Blog not found"
+                    }
+                }
+            }
+        },
+        "/customer-messages": {
+            "post": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Submit a customer message",
+                "description": "Submits a new customer message from the contact form.",
+                "operationId": "21981f3ed3ea2c551cafe77650ff96cd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "phone",
+                                    "subject",
+                                    "message"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "pattern": "^[0-9]{10}$",
+                                        "example": "9841234567"
+                                    },
+                                    "subject": {
+                                        "type": "string",
+                                        "example": "Booking Inquiry"
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "example": "I would like to book a room."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Message submitted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Message submitted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation failed."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed to submit message. Please try again later."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/activities": {
+            "get": {
+                "tags": [
+                    "Activities"
+                ],
+                "summary": "List all published activities",
+                "description": "Returns a paginated list of published experience activities. Supports filtering by category name.",
+                "operationId": "fa04cbb03041bb875d6212b89bae56b0",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Filter by category name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated list of activities"
+                    }
+                }
+            }
+        },
+        "/activities/{slug}": {
+            "get": {
+                "tags": [
+                    "Activities"
+                ],
+                "summary": "Get specific activity details",
+                "description": "Returns all the details of a single published experience activity by its slug.",
+                "operationId": "ac3d8bdf948a693313295e8372e47104",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "The slug of the activity",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Activity details"
+                    },
+                    "404": {
+                        "description": "Activity not found"
+                    }
+                }
+            }
+        },
+        "/packages": {
+            "get": {
+                "tags": [
+                    "Packages"
+                ],
+                "summary": "List all published packages",
+                "description": "Returns a paginated list of published packages. Supports filtering by category name, difficulty (grade), and best for.",
+                "operationId": "a5edf5bd3e4e9aabe876b28c2d991f98",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Filter by category name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "difficulty",
+                        "in": "query",
+                        "description": "Filter by difficulty (maps to grade)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "best_for",
+                        "in": "query",
+                        "description": "Filter by best for",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated list of packages"
+                    }
+                }
+            }
+        },
+        "/packages/{slug}": {
+            "get": {
+                "tags": [
+                    "Packages"
+                ],
+                "summary": "Get specific package details",
+                "description": "Returns all the details of a single published package by its slug, including relationships like gallery and faqs.",
+                "operationId": "5d0971442db07d8dbabd950fb63be31e",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "The slug of the package",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Package details"
+                    },
+                    "404": {
+                        "description": "Package not found"
+                    }
+                }
+            }
+        },
+        "/pages": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "List all pages",
+                "description": "Returns a list of all pages with name and slug",
+                "operationId": "d511b17050ca71ca4485c068a54137e1",
+                "responses": {
+                    "200": {
+                        "description": "List of pages"
+                    }
+                }
+            }
+        },
+        "/pages/{slug}": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Get page with all sections",
+                "description": "Returns a complete page with hero section and all dynamic sections with their content filtered by display_fields",
+                "operationId": "01cf406b8dbd1ebf7e316d5cb6877490",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Page slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Page with sections"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/rooms": {
+            "get": {
+                "tags": [
+                    "Rooms"
+                ],
+                "summary": "List all published rooms",
+                "description": "Returns a list of published rooms.",
+                "operationId": "65ab78b0d8ddc513ee9952eeaa7f0026",
+                "responses": {
+                    "200": {
+                        "description": "List of rooms"
+                    }
+                }
+            }
+        },
+        "/rooms/{slug}": {
+            "get": {
+                "tags": [
+                    "Rooms"
+                ],
+                "summary": "Get specific room details",
+                "description": "Returns all the details of a single published room by its slug, including relationships like amenities, special features, beds, and gallery.",
+                "operationId": "d5d2d96a01a27e5b9ae2341162a155c5",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "The slug of the room",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Room details"
+                    },
+                    "404": {
+                        "description": "Room not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "HeroCtaButton": {
+                "properties": {
+                    "button_name": {
+                        "type": "string",
+                        "example": "Book Now"
+                    },
+                    "navigate_to": {
+                        "type": "string",
+                        "example": "packages"
+                    }
+                },
+                "type": "object"
+            },
+            "HeroSection": {
+                "title": "HeroSection",
+                "properties": {
+                    "section_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "order": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "section_title": {
+                        "type": "string",
+                        "example": "Welcome"
+                    },
+                    "heading": {
+                        "type": "string",
+                        "example": "Discover Nepal"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Explore amazing packages"
+                    },
+                    "media_type": {
+                        "type": "string",
+                        "example": "image",
+                        "enum": [
+                            "image",
+                            "video"
+                        ]
+                    },
+                    "video_url": {
+                        "type": "string",
+                        "example": "https://example.com/video.mp4",
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "published",
+                        "enum": [
+                            "published",
+                            "draft"
+                        ]
+                    },
+                    "page": {
+                        "$ref": "#/components/schemas/Page"
+                    },
+                    "slider_images": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HeroSliderImage"
+                        }
+                    },
+                    "cta_buttons": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HeroCtaButton"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "HeroSectionSimple": {
+                "properties": {
+                    "section_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "order": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "section_title": {
+                        "type": "string",
+                        "example": "Welcome"
+                    },
+                    "heading": {
+                        "type": "string",
+                        "example": "Discover Nepal"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Explore amazing packages"
+                    },
+                    "media_type": {
+                        "type": "string",
+                        "example": "image",
+                        "enum": [
+                            "image",
+                            "video"
+                        ]
+                    },
+                    "video_path": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "slider_images": {
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        }
+                    },
+                    "cta_buttons": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HeroCtaButton"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "HeroSliderImage": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "image_url": {
+                        "type": "string",
+                        "example": "https://example.com/image.jpg",
+                        "nullable": true
+                    },
+                    "section_title": {
+                        "type": "string",
+                        "example": "Slide Title"
+                    },
+                    "heading": {
+                        "type": "string",
+                        "example": "Slide Heading"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Slide description"
+                    },
+                    "order": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "Page": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Home"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "home"
+                    },
+                    "parent": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/Page"
+                            }
+                        ],
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Blogs",
+            "description": "Blogs"
+        },
+        {
+            "name": "Messages",
+            "description": "Messages"
+        },
+        {
+            "name": "Activities",
+            "description": "Activities"
+        },
+        {
+            "name": "Packages",
+            "description": "Packages"
+        },
+        {
+            "name": "Pages",
+            "description": "Pages"
+        },
+        {
+            "name": "Rooms",
+            "description": "Rooms"
+        }
+    ]
+}
