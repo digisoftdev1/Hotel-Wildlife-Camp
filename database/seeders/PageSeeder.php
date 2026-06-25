@@ -18,7 +18,10 @@ class PageSeeder extends Seeder
             ['slug' => 'overview'],
             ['name' => 'Overview']
         );
-
+         $overview = Page::updateOrCreate(
+            ['slug' => 'about'],
+            ['name' => 'About']
+        );
         $gallery = Page::updateOrCreate(
             ['slug' => 'gallery'],
             ['name' => 'Gallery']
