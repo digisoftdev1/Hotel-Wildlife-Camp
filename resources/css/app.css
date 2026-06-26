@@ -1,0 +1,10 @@
+@import "../../node_modules/suneditor/dist/suneditor.min.css";
+@import "../../node_modules/select2/dist/css/select2.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sun-editor-editable {
+    padding: 1.5rem !important;
+}
